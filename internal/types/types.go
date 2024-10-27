@@ -1,13 +1,32 @@
 package types
 
+import (
+	"time"
+)
+
 // ServiceStatus represents the status of a monitored service
 type ServiceStatus struct {
-    ServiceName       string
-    ServiceURL       string
-    ResponseTime      int
-    AvgResponseTime   float64
-    Uptime24Hours     string
-    Uptime30Days      string
-    CertificateExpiry string
-    CurrentStatus     string
+	ServiceURL        string
+	ServiceName       string
+	ResponseTime      int
+	AvgResponseTime   float64
+	Uptime24Hours     float64
+	Uptime30Days      float64
+	CurrentStatus     bool
+	CertificateExpiry time.Time
+	IsActive          bool
+}
+
+type Monitor struct {
+	ID       int
+	Name     string
+	URL      string
+	IsActive bool
+}
+
+// Add this new type
+type HistoricalStat struct {
+	ResponseTime int
+	IsUp         bool
+	Timestamp    time.Time
 }
