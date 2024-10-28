@@ -2,7 +2,7 @@
 
 Go Up is a simple TUI based tool to monitor the status of your services.
 
-![Screenshot](./docs/screenshot.png)
+![Screenshot](./resources/screenshot.png)
 
 ## ⭐ Features
 
