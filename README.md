@@ -10,6 +10,7 @@ Go Up is a simple TUI based tool to monitor the status of your services.
 - Pretty ok terminal UI
 - 60 second monitor interval
 - Ping chart with downtime indicator
+- Extremely low resource usage
 
 ## 🔧 Installation
 
