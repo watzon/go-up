@@ -32,4 +32,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: go-up
-          path: /github/workspace/.release/go-up_*
+          path: .release/
