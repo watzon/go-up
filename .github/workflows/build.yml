@@ -21,11 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: '1.23'
-
       - name: Compile
         uses: xxxserxxx/actions/golang-build@v2.2.3
         env:
