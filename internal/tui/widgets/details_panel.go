@@ -18,7 +18,7 @@ type DetailsPanel struct {
 }
 
 func NewDetailsPanel() *DetailsPanel {
-	container := termui.NewBlock() // Changed from widgets.NewBlock() to termui.NewBlock()
+	container := termui.NewBlock()
 	container.Border = true
 	container.BorderStyle = termui.NewStyle(termui.ColorWhite)
 
@@ -79,17 +79,12 @@ func (d *DetailsPanel) Draw(buf *termui.Buffer) {
 	d.Stats.Draw(buf)
 }
 
-// GetRect implements termui.Drawable interface
 func (d *DetailsPanel) GetRect() image.Rectangle {
 	d.Lock()
 	defer d.Unlock()
 	return d.Container.GetRect()
 }
 
-// Lock is already implemented by embedding sync.Mutex
-// Unlock is already implemented by embedding sync.Mutex
-
-// Add this method to DetailsPanel
 func (d *DetailsPanel) InitializeChart(stats []types.HistoricalStat, debug *DebugView) {
 	d.Lock()
 	defer d.Unlock()

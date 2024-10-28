@@ -17,7 +17,7 @@ type App struct {
 	debug            *widgets.DebugView
 	help             *widgets.HelpBar
 	monitors         []types.Monitor
-	currentMonitorID int // Add this field
+	currentMonitorID int
 }
 
 func NewApp(debugMode bool, daemonAddr string) (*App, error) {
@@ -47,7 +47,7 @@ func NewApp(debugMode bool, daemonAddr string) (*App, error) {
 
 func (app *App) Run() error {
 	defer termui.Close()
-	defer app.Close() // Make sure we close the RPC client
+	defer app.Close()
 
 	// Initial data fetch and setup
 	if err := app.initialSetup(); err != nil {
@@ -278,7 +278,6 @@ func (app *App) refreshData() error {
 	return nil
 }
 
-// Add this method to App struct
 func (app *App) Close() error {
 	if app.client != nil {
 		return app.client.close()
@@ -286,7 +285,6 @@ func (app *App) Close() error {
 	return nil
 }
 
-// Update the updateSelectedMonitor method
 func (app *App) updateSelectedMonitor(index int) {
 	if index >= len(app.monitors) {
 		return

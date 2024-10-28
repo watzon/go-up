@@ -6,11 +6,13 @@
 name: Build Go binaries
 
 on:
-    push:
-        paths-ignore:
-        - 'docs/release.svg'
-        - 'README.md'
-        - 'CHANGELOG.md'
+  push:
+      paths-ignore:
+      - 'docs/screenshot.png'
+      - 'README.md'
+      - 'CHANGELOG.md'
+      - 'LICENSE'
+      - 'Dockerfile'
 
 jobs:
   build:
@@ -25,3 +27,9 @@ jobs:
             SRCPATH: ./cmd/go-up
         with:
             args: darwin/amd64/1 darwin/arm64/1 linux/amd64 linux/386 linux/arm64 linux/arm7 linux/arm6 linux/arm5 windows/amd64/1 windows/386/1 freebsd/amd64/1
+        
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: go-up
+          path: ./release/go-up_*

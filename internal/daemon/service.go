@@ -11,7 +11,6 @@ import (
 	"github.com/watzon/go-up/internal/types"
 )
 
-// Service represents the RPC service that will handle requests
 type Service struct {
 	db *database.DB
 }
@@ -20,7 +19,6 @@ func NewService(db *database.DB) *Service {
 	return &Service{db: db}
 }
 
-// ListMonitors handles the RPC call to list monitors
 func (s *Service) ListMonitors(_ struct{}, reply *[]types.Monitor) error {
 	monitors, err := s.db.ListMonitors()
 	if err != nil {
@@ -37,7 +35,6 @@ func (s *Service) AddMonitor(args struct{ Name, URL string }, reply *string) err
 		return err
 	}
 
-	// Fetch initial stats immediately
 	responseTime, isUp, certExpiry := checkService(args.URL)
 	if err := s.db.AddStats(args.Name, int(responseTime.Milliseconds()), isUp, certExpiry); err != nil {
 		log.Printf("Warning: Failed to fetch initial stats for %s: %v", args.Name, err)

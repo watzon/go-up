@@ -10,7 +10,7 @@ type ResponseChart struct {
 	*widgets.BarChart
 	data        []float64
 	labels      []string
-	statuses    []bool // Add this field to track up/down status
+	statuses    []bool
 	storedStats []types.HistoricalStat
 	debug       *DebugView
 }
@@ -27,7 +27,7 @@ func NewResponseChart() *ResponseChart {
 		BarChart: chart,
 		data:     make([]float64, 0),
 		labels:   make([]string, 0),
-		statuses: make([]bool, 0), // Initialize the statuses slice
+		statuses: make([]bool, 0),
 	}
 }
 
@@ -35,7 +35,7 @@ func (c *ResponseChart) Update(status types.ServiceStatus) {
 	// Add new data point
 	responseValue := float64(status.ResponseTime)
 	if !status.CurrentStatus {
-		responseValue = 0 // Use 0 for down status
+		responseValue = 0
 	}
 
 	c.data = append(c.data, responseValue)
@@ -94,12 +94,10 @@ func (c *ResponseChart) Update(status types.ServiceStatus) {
 	c.Labels = c.labels
 }
 
-// Add method to store stats for later initialization
 func (c *ResponseChart) StoreHistoricalStats(stats []types.HistoricalStat) {
 	c.storedStats = stats
 }
 
-// Add method to initialize with current width
 func (c *ResponseChart) InitializeWithCurrentWidth() {
 	if len(c.storedStats) > 0 {
 		width := c.GetRect().Dx()
@@ -115,15 +113,13 @@ func (c *ResponseChart) InitializeWithCurrentWidth() {
 	}
 }
 
-// Add new method to calculate how many bars can fit
 func (c *ResponseChart) CalculateMaxBars(containerWidth int) int {
-	width := containerWidth - 2 // Subtract 2 for padding
+	width := containerWidth - 2
 	// Each bar takes BarWidth + 1 space (bar + gap)
 	// We also need 1 space at the start for padding
 	return (width - 1) / (c.BarWidth + 1)
 }
 
-// Update InitializeHistory to handle the data in the same way
 func (c *ResponseChart) InitializeHistory(stats []types.HistoricalStat, containerWidth int, debug *DebugView) {
 	c.debug = debug
 	if debug != nil {

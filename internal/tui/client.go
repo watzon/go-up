@@ -98,7 +98,6 @@ func (c *RPCClient) resumeMonitor(name string) error {
 	return c.call("Service.ResumeMonitor", name, &reply)
 }
 
-// Update the getHistoricalStats method
 func (c *RPCClient) getHistoricalStats(monitorID int, count int, debug *widgets.DebugView) ([]types.HistoricalStat, error) {
 	var stats []types.HistoricalStat
 	args := struct {

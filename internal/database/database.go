@@ -108,18 +108,15 @@ func (db *DB) GetStats(monitorName string, duration time.Duration) (types.Servic
 		return status, err
 	}
 
-	// Create a separate struct for aggregated stats
 	var stats struct {
 		AvgResponseTime float64
 		Uptime24h       float64
 		Uptime30d       float64
 	}
 
-	// Get averages and uptimes
 	dayAgo := time.Now().AddDate(0, 0, -1)
 	monthAgo := time.Now().AddDate(0, 0, -30)
 
-	// Calculate average response time
 	err := db.Model(&Check{}).
 		Where("monitor_id = ? AND timestamp >= ?", monitor.ID, monthAgo).
 		Select("COALESCE(AVG(response_time), 0) as avg_response_time").
@@ -129,7 +126,6 @@ func (db *DB) GetStats(monitorName string, duration time.Duration) (types.Servic
 		return status, err
 	}
 
-	// Calculate 24h uptime
 	var upCount24h, totalCount24h int64
 	err = db.Model(&Check{}).
 		Where("monitor_id = ? AND timestamp >= ?", monitor.ID, dayAgo).
@@ -144,7 +140,6 @@ func (db *DB) GetStats(monitorName string, duration time.Duration) (types.Servic
 		stats.Uptime24h = float64(upCount24h) * 100.0 / float64(totalCount24h)
 	}
 
-	// Calculate 30d uptime
 	var upCount30d, totalCount30d int64
 	err = db.Model(&Check{}).
 		Where("monitor_id = ? AND timestamp >= ?", monitor.ID, monthAgo).
@@ -159,7 +154,6 @@ func (db *DB) GetStats(monitorName string, duration time.Duration) (types.Servic
 		stats.Uptime30d = float64(upCount30d) * 100.0 / float64(totalCount30d)
 	}
 
-	// Get latest check separately
 	var lastCheck Check
 	if err := db.Where("monitor_id = ?", monitor.ID).
 		Order("timestamp DESC").

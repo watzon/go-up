@@ -24,7 +24,6 @@ type Monitor struct {
 	IsActive bool
 }
 
-// Add this new type
 type HistoricalStat struct {
 	ResponseTime int
 	IsUp         bool

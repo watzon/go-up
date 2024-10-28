@@ -80,8 +80,6 @@ func (s *ServiceList) MoveSelection(delta int, maxIndex int) {
 	}
 }
 
-// Add these methods to ServiceList
-
 func (s *ServiceList) IsPaused(serviceName string) bool {
 	return s.pausedMonitors[serviceName]
 }
