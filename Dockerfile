@@ -9,8 +9,13 @@ WORKDIR /app
 
 COPY . .
 
+ENV CGO_ENABLED=1
+ENV GOOS=linux
+
+RUN apk add --no-cache gcc g++
+
 RUN go build -o go-up cmd/go-up/main.go
 
 EXPOSE 1234
 
-CMD ["./go-up daemon"]
+CMD ["./go-up", "daemon"]
